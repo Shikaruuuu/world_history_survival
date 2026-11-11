@@ -17,6 +17,12 @@ npm run balance    # 自動プレイによる結末の分布（戦略ごとに20
 ```
 
 `dist/` は相対パスでビルドされるので、GitHub Pages などの静的ホスティングにそのまま置けます。
+### 公開版（GitHub Pages）
+
+https://shikaruuuu.github.io/world_history_survival/
+
+`gh-pages` ブランチに置いたビルド結果を公開しています。更新するときは `npm run build` のあと、`dist/` の中身（と空の `.nojekyll`）を `gh-pages` ブランチに置き換えてプッシュします。
+
 URL に `?seed=1348` を付けると、タイトルのシード欄にその値が入ります（同じシード・同じ行動なら同じ展開になります）。
 
 ## 操作
