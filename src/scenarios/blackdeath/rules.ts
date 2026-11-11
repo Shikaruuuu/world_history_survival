@@ -380,13 +380,18 @@ export function simulateRest(s: S, o: NightOpt & { foodPerDay?: number } = {}) {
 
 /** 14日目を越えた時点でまだ病の床にある者の、その後を決める（新たな感染は起こさない） */
 export function aftermath(s: S) {
+  const day = s.day, from = s.journal.length;
+  s.day = TOTAL_DAYS;
   for (let i = 0; i < 10 && living(s).some((p) => p.illness); i++) {
     const out: string[] = [];
     if (s.food >= 1) eat(s, 'child');
     const lucia = s.people.lucia;
     for (const p of living(s)) { if (sick(p) && p.id !== 'lucia' && !well(lucia) && s.people.player.alive && well(s.people.player)) p.cared = 6; progressIllness(s, p, out); p.cared = 0; }
-    s.day++;
   }
+  // 14日目のあとに決着した出来事は「その後」と分かるようにする
+  for (const j of s.journal.slice(from)) j.text = '（その後）' + j.text;
+  for (const p of Object.values(s.people)) if (!p.alive && p.deathDay === TOTAL_DAYS && s.journal.slice(from).some((j) => j.text.includes(p.name))) p.deathCause = (p.deathCause ?? '') + '（14日目のあと）';
+  s.day = day;
   s.queue = [];
 }
 

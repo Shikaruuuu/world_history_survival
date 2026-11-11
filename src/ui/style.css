@@ -33,7 +33,7 @@ body:not(.touch) #stickBase { display: none; }
 .pips i.on { background: var(--gold); }
 .stats { flex: 1; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-width: 0; }
 .bar { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 3px 8px; }
-.bar i { display: block; width: 54px; height: 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.14); overflow: hidden; }
+.bar i { display: block; width: 44px; height: 7px; border-radius: 4px; background: rgba(255, 255, 255, 0.14); overflow: hidden; }
 .bar b { display: block; height: 100%; background: var(--ok); }
 .bar.warn b { background: var(--bad); }
 .bar.warn span { color: var(--warn); }

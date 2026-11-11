@@ -99,7 +99,7 @@ export function buildResult(s: S): ResultData {
     ending: e,
     days: Math.min(TOTAL_DAYS, p.alive ? TOTAL_DAYS : p.deathDay ?? e.day),
     rows: [
-      { label: '生き延びた日数', value: `${p.alive ? TOTAL_DAYS : Math.max(1, (p.deathDay ?? 1) - 1)}日 / ${TOTAL_DAYS}日` },
+      { label: '生き延びた日数', value: `${p.alive ? TOTAL_DAYS : Math.min(TOTAL_DAYS, p.deathDay ?? 1)}日 / ${TOTAL_DAYS}日` },
       { label: 'あなた', value: fate(p) },
       { label: '最後の所持金', value: `${s.money}ソルド` },
       { label: '最後の食料', value: `${Math.round(s.food)}食` },

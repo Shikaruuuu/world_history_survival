@@ -17,10 +17,10 @@ const CELL = 0.5, EYE = 1.62, RADIUS = 0.3;
 const PAL = [
   { top: 0x5d9bd6, bot: 0xdbe7ee, fog: 0xd0dfe8, near: 70, far: 260, sun: 0xfff2d8, sunI: 2.5, hemi: 1.55 },
   { top: 0x6f9cc4, bot: 0xd8dcd8, fog: 0xccd4d2, near: 55, far: 210, sun: 0xfff0d4, sunI: 2.2, hemi: 1.5 },
-  { top: 0x8a97a0, bot: 0xcfc8b8, fog: 0xc2bba8, near: 34, far: 150, sun: 0xffe6c0, sunI: 1.6, hemi: 1.4 },
-  { top: 0x77797a, bot: 0xb5ab98, fog: 0xa9a08e, near: 22, far: 105, sun: 0xe8d8c0, sunI: 1.05, hemi: 1.35 },
+  { top: 0x7d8890, bot: 0xbdb5a2, fog: 0xaea690, near: 28, far: 130, sun: 0xffe2b8, sunI: 1.3, hemi: 1.15 },
+  { top: 0x5e6266, bot: 0x948a78, fog: 0x8a826f, near: 14, far: 80, sun: 0xd8c8b0, sunI: 0.75, hemi: 0.95 },
 ];
-const DUSK = { top: 0x3a4a78, bot: 0xe8a070, fog: 0xc99878, sun: 0xff9a5a };
+const DUSK = { top: 0x2c3560, bot: 0xd8885a, fog: 0xa87a62, sun: 0xff8a4a };
 
 interface Actor { view: NpcView; ch: Character; x: number; z: number; face: number; walking: number; node: number; tx: number; tz: number; wait: number; speed: number }
 
@@ -294,15 +294,15 @@ export class Game3D {
     const p = Math.max(0, Math.min(2.999, this.atmo.phase)), i = Math.floor(p), f = p - i;
     const A = PAL[i], B = PAL[i + 1] ?? PAL[i];
     const mix = (a: number, b: number, out: THREE.Color) => out.setHex(a).lerp(this.c3.setHex(b), f);
-    const dk = Math.max(0, (this.atmo.dusk - 0.45) / 0.55);
+    const dk = Math.max(0, (this.atmo.dusk - 0.35) / 0.65);
     const top = mix(A.top, B.top, this.c1).clone().lerp(this.c3.setHex(DUSK.top), dk * 0.8);
     const bot = mix(A.bot, B.bot, this.c2).clone().lerp(this.c3.setHex(DUSK.bot), dk * 0.75);
     const fog = this.scene.fog as THREE.Fog;
     mix(A.fog, B.fog, fog.color).lerp(this.c3.setHex(DUSK.fog), dk * 0.6);
     fog.near = A.near + (B.near - A.near) * f; fog.far = A.far + (B.far - A.far) * f;
     mix(A.sun, B.sun, this.sun.color).lerp(this.c3.setHex(DUSK.sun), dk * 0.8);
-    this.sun.intensity = (A.sunI + (B.sunI - A.sunI) * f) * (1 - dk * 0.5);
-    this.hemi.intensity = (A.hemi + (B.hemi - A.hemi) * f) * (1 - dk * 0.28);
+    this.sun.intensity = (A.sunI + (B.sunI - A.sunI) * f) * (1 - dk * 0.6);
+    this.hemi.intensity = (A.hemi + (B.hemi - A.hemi) * f) * (1 - dk * 0.4);
     const el = 0.95 - this.atmo.dusk * 0.6;
     this.sun.position.set(Math.cos(el) * 60 - 20, Math.sin(el) * 80, 30);
     this.sun.target.position.set(0, 0, 0);

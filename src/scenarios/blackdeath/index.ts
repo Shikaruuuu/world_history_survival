@@ -154,7 +154,7 @@ function worldView(s: S): WorldView {
 }
 
 // ---------- HUD・メニュー ----------
-const TIME_NAMES = ['朝', '午前', '昼', '午後', '夕方', '日暮れ前', '夜'];
+const TIME_NAMES = ['朝', '午前', '昼', '午後', '夕方', '夕暮れ', '夜'];
 function timeLabel(s: S) { return TIME_NAMES[Math.min(6, Math.round((1 - s.time / s.maxTime) * 6))]; }
 
 function hint(s: S): string {

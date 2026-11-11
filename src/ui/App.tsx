@@ -284,7 +284,7 @@ function Result() {
             </tbody></table>
           </section>
           <section>
-            <h3>あなたの選択</h3>
+            <h3>主な選択と出来事</h3>
             {r.choices.length ? <ul className="log">{r.choices.map((c, i) => <li key={i}>{c}</li>)}</ul> : <p className="small">大きな選択はなかった。</p>}
           </section>
         </div>

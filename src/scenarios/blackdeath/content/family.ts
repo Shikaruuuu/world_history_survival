@@ -51,11 +51,11 @@ function luciaLine(s: S): string {
   if (!m.alive) return '「軒下のツバメ、今年も巣立つのね。あの子が見つけた巣よ」';
   if (sick(m)) return '「マルコの額、火みたいに熱いの。あなた、そばにいてやって」';
   if (sick(P(s))) return '「寝ていて。水は私が汲んでくる。あなたは、治ることだけ考えて」';
-  if (flag(s, 'becDay') === s.day - 1) return '「昨日のこと、聞いたわ。亡骸を運ぶ仕事だなんて……。お金のためなのは分かってる。でも、怖いの」';
-  if (flag(s, 'lootDay') === s.day - 1) return '「昨日の袋、どこから？……聞かないでおくわ。でも、神様は見ておられるのよ」';
+  if ((flag(s, 'becDay') > 0 && flag(s, 'becDay') === s.day - 1)) return '「昨日のこと、聞いたわ。亡骸を運ぶ仕事だなんて……。お金のためなのは分かってる。でも、怖いの」';
+  if ((flag(s, 'lootDay') > 0 && flag(s, 'lootDay') === s.day - 1)) return '「昨日の袋、どこから？……聞かないでおくわ。でも、神様は見ておられるのよ」';
   if (l.satiety < 35) return '「私は平気。……少し、めまいがするだけ」';
   if (s.food < mouths(s)) return '「今夜の分が、もう足りないの。どうしましょう」';
-  if (flag(s, 'sawRats') >= s.day - 1 && s.sc.home.infest > 40) return '「夜中に、袋をかじる音がするの。家を掃き清めて、寝具を灰汁で洗いたいわ」';
+  if (flag(s, 'sawRats') > 0 && flag(s, 'sawRats') >= s.day - 1 && s.sc.home.infest > 40) return '「夜中に、袋をかじる音がするの。家を掃き清めて、寝具を灰汁で洗いたいわ」';
   if (l.morale < 25) return '「……ごめんなさい。今日は、何も考えたくないの」';
   if (l.bond < 30) return '「あなたは、いつも外ばかり。私たちの顔、ちゃんと見てる？」';
   if (flag(s, 'fleePlan') === 1) return '「荷はまとめてあるわ。いつでも出られる。門が開いているうちに、決めて」';
@@ -71,7 +71,7 @@ function marcoLine(s: S): string {
   if (sick(l)) return '「母さんにお水持ってったよ。ぼく、ちゃんとこぼさなかった」';
   if (sick(P(s))) return '「父さん、死なないで。ぼく、いい子にするから」';
   if (m.satiety < 35) return '「……お腹、すいてないよ。ほんとだよ」';
-  if (flag(s, 'cakeDay') === s.day - 1) return '「昨日のお菓子、夢にも出てきた！はちみつの味、まだ覚えてる」';
+  if ((flag(s, 'cakeDay') > 0 && flag(s, 'cakeDay') === s.day - 1)) return '「昨日のお菓子、夢にも出てきた！はちみつの味、まだ覚えてる」';
   if (s.sc.home.guest && chance(s, 0.5)) return '「ピッポ、夜に泣いてた。ぼく、手をつないであげたんだ」';
   if (s.sc.home.cat && chance(s, 0.5)) return '「ネーロがね、ぼくのひざで寝たんだよ。あったかかった！」';
   if (npc(s, 'teresa').st === 'dead' && flag(s, 'marcoAskedTeresa') === 0) { setFlag(s, 'marcoAskedTeresa'); return '「テレーザおばあちゃん、もうイチジクくれないの？……天国に行ったの？」'; }
